@@ -1,11 +1,12 @@
-import { Home, Calendar, Grid3X3, Users, BarChart3, UtensilsCrossed } from 'lucide-react'
+import { Home, Calendar, Grid3X3, Users, BarChart3, UtensilsCrossed, Clock } from 'lucide-react'
 
 const NAV = [
-  { id: 'inicio',   label: 'Inicio',        icon: Home },
-  { id: 'reservas', label: 'Reservas',       icon: Calendar },
-  { id: 'mesas',    label: 'Mapa de Mesas',  icon: Grid3X3 },
-  { id: 'gestor',   label: 'Gestor Humano',  icon: Users },
-  { id: 'metricas', label: 'Métricas',       icon: BarChart3 },
+  { id: 'inicio',   label: 'Inicio',          icon: Home },
+  { id: 'reservas', label: 'Reservas',         icon: Calendar },
+  { id: 'mesas',    label: 'Mapa de Mesas',    icon: Grid3X3 },
+  { id: 'gestor',   label: 'Gestor Humano',    icon: Users },
+  { id: 'metricas', label: 'Métricas',         icon: BarChart3 },
+  { id: 'espera',   label: 'Lista de Espera',  icon: Clock },
 ]
 
 const S = {
@@ -42,8 +43,9 @@ function NavBtn({ item, active, onClick, badge }) {
   }
   const activeStyle = {
     ...base,
-    background: '#00E676', color: '#000',
-    boxShadow: '0 2px 12px rgba(0,230,118,0.25)',
+    background: item.id === 'espera' ? '#FFB300' : '#00E676',
+    color: '#000',
+    boxShadow: item.id === 'espera' ? '0 2px 12px rgba(255,179,0,0.25)' : '0 2px 12px rgba(0,230,118,0.25)',
   }
   const idleStyle = {
     ...base,

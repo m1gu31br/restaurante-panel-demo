@@ -6,6 +6,7 @@ import Reservas from './components/Reservas'
 import MapaMesas from './components/MapaMesas'
 import GestorHumano from './components/GestorHumano'
 import Metricas from './components/Metricas'
+import ListaEspera from './components/ListaEspera'
 import NuevaReservaModal from './components/NuevaReservaModal'
 import { RESERVAS_INICIAL, MESAS_INICIAL, GESTOR_HUMANO_INICIAL } from './data/mockData'
 
@@ -15,6 +16,7 @@ const TITULO = {
   mesas:    'Mapa de Mesas',
   gestor:   'Gestor Humano',
   metricas: 'Métricas y Análisis',
+  espera:   'Lista de Espera',
 }
 
 function App() {
@@ -44,24 +46,26 @@ function App() {
         }}>
           <div>
             <h1 style={{ margin: 0, color: '#fff', fontSize: 20, fontWeight: 600 }}>{TITULO[seccion]}</h1>
-            <p style={{ margin: '2px 0 0', color: '#9E9E9E', fontSize: 13 }}>Viernes, 30 de mayo de 2026</p>
+            <p style={{ margin: '2px 0 0', color: '#9E9E9E', fontSize: 13 }}>Restaurante OLIVO · Guatapé · {new Date().toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
           </div>
-          <button
-            onClick={() => setShowModal(true)}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 8,
-              background: '#00E676', color: '#000', fontWeight: 700,
-              padding: '10px 20px', borderRadius: 12, border: 'none',
-              cursor: 'pointer', fontSize: 14,
-              boxShadow: '0 4px 20px rgba(0,230,118,0.3)',
-              transition: 'transform 0.15s, box-shadow 0.15s',
-            }}
-            onMouseEnter={e => { e.target.style.transform = 'scale(1.04)' }}
-            onMouseLeave={e => { e.target.style.transform = 'scale(1)' }}
-          >
-            <Plus size={18} strokeWidth={2.5} />
-            Nueva Reserva
-          </button>
+          {seccion !== 'espera' && (
+            <button
+              onClick={() => setShowModal(true)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                background: '#00E676', color: '#000', fontWeight: 700,
+                padding: '10px 20px', borderRadius: 12, border: 'none',
+                cursor: 'pointer', fontSize: 14,
+                boxShadow: '0 4px 20px rgba(0,230,118,0.3)',
+                transition: 'transform 0.15s, box-shadow 0.15s',
+              }}
+              onMouseEnter={e => { e.target.style.transform = 'scale(1.04)' }}
+              onMouseLeave={e => { e.target.style.transform = 'scale(1)' }}
+            >
+              <Plus size={18} strokeWidth={2.5} />
+              Nueva Reserva
+            </button>
+          )}
         </header>
 
         <main style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
@@ -70,6 +74,7 @@ function App() {
           {seccion === 'mesas'    && <MapaMesas mesas={mesas} reservas={reservas} />}
           {seccion === 'gestor'   && <GestorHumano items={gestorItems} onUpdate={updateGestorItem} />}
           {seccion === 'metricas' && <Metricas reservas={reservas} />}
+          {seccion === 'espera'   && <ListaEspera />}
         </main>
       </div>
 
